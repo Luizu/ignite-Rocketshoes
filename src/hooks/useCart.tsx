@@ -64,11 +64,11 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
             localStorage.setItem('@RocketShoes:cart', JSON.stringify(updatedCart))
             return;
         } else {
-          toast.error('Produto sem o estoque solicitado');
+          toast.error('Quantidade solicitada fora de estoque');
         }
       }
     } catch {
-      toast.error('Houve um erro ao adicionar o produto, tente novamente');
+      toast.error('Erro na adição do produto');
     }
   };
 
@@ -77,7 +77,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const productExists = cart.some(cartItem => cartItem.id === productId);
 
       if(!productExists) {
-        toast.error('Produto não existe em nosso sistema');
+        toast.error('Erro na remoção do produto');
         return;
       }
 
@@ -86,7 +86,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       setCart(updatedCart);
       localStorage.setItem('@RocketShoes:cart', JSON.stringify(updatedCart))
     } catch {
-      toast.error('Houve um erro ao remover o produto, tente novamente');
+      toast.error('Erro na alteração de quantidade do produto');
     }
   };
 
@@ -96,7 +96,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
   }: UpdateProductAmount) => {
     try {
       if (amount <= 0) {
-        toast.error('Houve um erro ao alterar o produto, tente novamente');
+        toast.error('Erro na alteração de quantidade do produto');
         return;
       }
 
@@ -106,13 +106,13 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const productStock = amount > productAmount;
 
       if (productStock) {
-        toast.error('Produto sem o estoque solicitado');
+        toast.error('Quantidade solicitada fora de estoque');
         return;
       }
 
       const productExists = cart.some(cartItem => cartItem.id === productId)
         if(!productExists) {
-          toast.error('Houve um erro ao alterar o produto, tente novamente');
+          toast.error('Erro na alteração de quantidade do produto');
           return;
         }
 
@@ -123,7 +123,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
           setCart(updatedCart);
           localStorage.setItem('@RocketShoes:cart', JSON.stringify(updatedCart));
     } catch {
-      toast.error('Houve um erro ao alterar o produto, tente novamente');
+      toast.error('Erro na alteração de quantidade do produto');
     }
   };
 
